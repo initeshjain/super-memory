@@ -1,0 +1,54 @@
+services:
+  valkey:
+    image: valkey/valkey
+    ports:
+      - "6379:6379"
+    networks:
+      - memory-net
+
+  qdrant:
+    image: qdrant/qdrant
+    ports:
+      - "6333:6333"
+    networks:
+      - memory-net
+
+  server-api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    command: ["pnpm", "run", "start:api"]
+    depends_on:
+      - valkey
+      - qdrant
+    ports:
+      - "8000:8000"
+    networks:
+      - memory-net
+
+  server-worker:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    command: ["pnpm", "run", "start:worker"]
+    depends_on:
+      - valkey
+      - qdrant
+    networks:
+      - memory-net
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - memory-net
+    depends_on:
+      - server-api
+
+networks:
+  memory-net:
+    driver: bridge
+
