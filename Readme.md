@@ -1,5 +1,3 @@
----
-
 # 🧠 Super Memory — Store Memories, Talk to Them Later
 
 **Super Memory** is an AI-powered application that lets users save memories as simple text entries and later retrieve or discuss them via a conversational chatbot. It blends the power of **vector search** with **generative AI** to help you reflect, recall, and reconnect with your thoughts.
@@ -123,5 +121,3 @@ Have ideas or improvements? Feel free to:
 * Suggest features
 
 Let's build Super Memory together! 🧠
-
----
